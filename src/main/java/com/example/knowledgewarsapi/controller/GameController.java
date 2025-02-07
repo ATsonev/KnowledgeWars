@@ -16,11 +16,6 @@ public class GameController {
         this.questionService = questionService;
     }
 
-    @GetMapping("/categories")
-    public List<String> getCategories() {
-        return questionService.getCategories();
-    }
-
 /*    @GetMapping("/question")
     public Question getQuestion(@RequestParam String category) {
         return questionService.getQuestionByCategory(category);
