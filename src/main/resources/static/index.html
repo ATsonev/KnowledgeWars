@@ -11,63 +11,65 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background: linear-gradient(90deg, #210E45, #3D1365, #541889, #551B96, #591B96, #551B96, #541889, #3D1365, #210E45) fixed;
+            background: radial-gradient(circle, #591B96, #551B96, #541889, #3D1365, #210E45);
             text-align: center;
             color: white;
             font-family: Arial, sans-serif;
         }
 
-        @keyframes gradientFade {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 20px;
-            position: relative;
-            top: -50px;
-        }
-
-        h1 span {
-            display: inline-block;
-            transform-origin: bottom center;
-        }
-
-        h1 span:nth-child(1) { transform: rotate(-20deg); }
-        h1 span:nth-child(2) { transform: rotate(-15deg); }
-        h1 span:nth-child(3) { transform: rotate(-10deg); }
-        h1 span:nth-child(4) { transform: rotate(-5deg); }
-        h1 span:nth-child(5) { transform: rotate(0deg); }
-        h1 span:nth-child(6) { transform: rotate(5deg); }
-        h1 span:nth-child(7) { transform: rotate(10deg); }
-        h1 span:nth-child(8) { transform: rotate(15deg); }
-        h1 span:nth-child(9) { transform: rotate(20deg); }
-
-        .play-button {
-            background-color: white;
-            color: #541889;
-            border: none;
+        /* Styling the button */
+        button {
+            margin-top: 30px;
             padding: 15px 30px;
-            font-size: 1.5rem;
-            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: #ffcc00;
+            color: black;
+            border: none;
             border-radius: 10px;
-            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .play-button:hover {
-            background-color: #eee;
+        button:hover {
+            background-color: #ffdd44;
+        }
+
+        /* Center SVG text */
+        .arc-container {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        svg {
+            width: 100%;
+            max-width: 500px;
+            overflow: visible;
         }
 	</style>
 </head>
 <body>
-<h1>
-	<span>K</span><span>N</span><span>O</span><span>L</span><span>A</span><span>D</span><span>G</span><span>E</span>
-	<span>W</span><span>A</span><span>R</span><span>S</span>
-</h1>
-<a href="/select-category" class="play-button">Play</a>
+
+<!-- Curved Text using SVG -->
+<div class="arc-container">
+	<svg viewBox="0 0 500 250">
+		<defs>
+			<!-- Adjust the curve path -->
+			<path id="arcPath" d="M 50,200 A 300,200 0 0,1 450,200" />
+		</defs>
+		<text font-size="70" font-weight="bold" fill="white">
+			<textPath href="#arcPath" text-anchor="middle" startOffset="50%">
+				Knowledge Wars
+			</textPath>
+		</text>
+	</svg>
+</div>
+
+<!-- Play Button -->
+<button onclick="window.location.href='category.html'">Play</button>
+
 </body>
 </html>
