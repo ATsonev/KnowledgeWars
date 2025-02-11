@@ -20,11 +20,11 @@
         /* Styling the button */
         button {
             margin-top: 30px;
-            padding: 15px 30px;
+            padding: 15px 40px;
             font-size: 20px;
             font-weight: bold;
-            background-color: #ffcc00;
-            color: black;
+            background-color: #76E0D2; /* Purple button */
+            color: #551B96; /* White text for contrast */
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -32,21 +32,22 @@
         }
 
         button:hover {
-            background-color: #ffdd44;
+            background-color: #BFE3E1; /* Lighter purple on hover */
         }
 
-        /* Center SVG text */
+        /* Move text even higher */
         .arc-container {
             width: 100%;
-            height: 200px;
+            height: 120px;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-top: -50px;
         }
 
         svg {
-            width: 100%;
-            max-width: 500px;
+            width: 90%;
+            max-width: 900px;
             overflow: visible;
         }
 	</style>
@@ -55,12 +56,12 @@
 
 <!-- Curved Text using SVG -->
 <div class="arc-container">
-	<svg viewBox="0 0 500 250">
+	<svg viewBox="0 0 900 200">
 		<defs>
-			<!-- Adjust the curve path -->
-			<path id="arcPath" d="M 50,200 A 300,200 0 0,1 450,200" />
+			<!-- Move arc higher -->
+			<path id="arcPath" d="M 100,120 A 500,200 0 0,1 800,120" />
 		</defs>
-		<text font-size="70" font-weight="bold" fill="white">
+		<text font-size="80" font-weight="bold" fill="white">
 			<textPath href="#arcPath" text-anchor="middle" startOffset="50%">
 				Knowledge Wars
 			</textPath>
@@ -69,7 +70,7 @@
 </div>
 
 <!-- Play Button -->
-<button onclick="window.location.href='category.html'">Play</button>
+<button onclick="window.location.href='categories.html'">Play with Friend</button>
 
 </body>
 </html>
