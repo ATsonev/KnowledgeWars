@@ -9,33 +9,70 @@
             color: white;
             font-family: Arial, sans-serif;
         }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(4, 200px);
             justify-content: center;
             max-width: 800px;
-            margin: auto;
+            gap: 10px;
+            margin: auto auto 5px;
         }
+
         .category {
             background-color: rgba(0, 0, 0, 0.5);
-            padding: 20px;
+            width: 200px;
+            height: 200px;
             border-radius: 10px;
-            font-size: 20px;
+            font-size: 25px;
             cursor: pointer;
             transition: 0.3s;
             text-align: center;
             border: 2px solid #00f7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
         }
+
         .category:hover {
             background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .logo {
+            width: 330px;
+            height: auto;
+			padding-bottom: 5px;
+        }
+
+        .category-logo {
+            grid-column: span 2;
+            margin-right: 5px;
         }
 	</style>
 </head>
 <body>
 <h1>Select a Category</h1>
+
 <div class="grid">
-	<div class="category" th:each="category : ${categories}" th:text="${category}"></div>
+	<div class="category" th:text="${categories[0]}"></div>
+	<div class="category" th:text="${categories[1]}"></div>
+	<div class="category" th:text="${categories[2]}"></div>
+	<div class="category" th:text="${categories[3]}"></div>
 </div>
+
+<div class="grid">
+	<div class="category" th:text="${categories[4]}"></div>
+	<div class="category category-logo" style="width: 410px"><img class="logo" src="/images/logo.png" alt="Logo"></div>
+	<div class="category" th:text="${categories[5]}"></div>
+</div>
+
+<div class="grid">
+	<div class="category" th:text="${categories[6]}"></div>
+	<div class="category" th:text="${categories[7]}"></div>
+	<div class="category" th:text="${categories[8]}"></div>
+	<div class="category" th:text="${categories[9]}"></div>
+</div>
+
 </body>
 </html>

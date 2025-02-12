@@ -28,8 +28,24 @@ public class QuestionService {
     }
 
     public List<String> getCategories() {
-        String prompt = "Generate 10 trivia categories. Each name must be **ONE SINGLE WORD** only.  " +
-                "No explanations, no descriptions. Just return the names in a numbered list";
+        String prompt = "Generate a fresh list of **10 trivia categories** with **short, engaging names (1-3 words max)**. " +
+                "Make sure the names are **not too long or overly detailed**. " +
+                "The categories should resemble those in classic quiz shows, such as 'World Inventions', 'Famous Musicians', 'News', 'Renaissance'. " +
+                "Avoid single-word categories like 'History' or 'Science', but also do **not** make them unnecessarily long. " +
+                "Ensure the categories cover **a variety of topics**, including history, science, pop culture, geography, literature, and technology. " +
+                "Make sure **each request generates different categories** to keep the game dynamic. " +
+                "Return only the categories as a numbered list, without explanations or extra text.\\n" +
+                "Example format:\\n" +
+                "1. Hidden Wonders\\n" +
+                "2. Inventors & Inventions\\n" +
+                "3. Unsolved Mysteries\\n" +
+                "4. Space Discoveries\\n" +
+                "5. Great Battles\\n" +
+                "6. Movie Legends\\n" +
+                "7. Myth & Legends\\n" +
+                "8. Famous Speeches\\n" +
+                "9. Science Wonders\\n" +
+                "10. Landmarks of the World";
 
         String requestBody = "{ \"model\": \"mistral\", \"prompt\": \"" + prompt + "\", \"stream\": false }";
 
