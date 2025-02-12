@@ -10,13 +10,19 @@
             font-family: Arial, sans-serif;
         }
 
-        .grid {
+        .category-container {
             display: grid;
             grid-template-columns: repeat(4, 200px);
             justify-content: center;
             max-width: 800px;
             gap: 10px;
+            grid-row-gap: 5px;
             margin: auto auto 5px;
+            border: 10px solid #F08E1C;
+            border-radius: 20px;
+            padding: 5px 25px 5px 20px;
+            position: relative;
+            box-shadow: 0 0 30px 15px rgba(240, 142, 28, 0.3), 0 0 80px 40px rgba(255, 255, 0, 0.2); /* Yellow glow effect */
         }
 
         .category {
@@ -42,7 +48,7 @@
         .logo {
             width: 330px;
             height: auto;
-			padding-bottom: 5px;
+            padding-bottom: 5px;
         }
 
         .category-logo {
@@ -54,20 +60,16 @@
 <body>
 <h1>Select a Category</h1>
 
-<div class="grid">
+<div class="category-container">
 	<div class="category" th:text="${categories[0]}"></div>
 	<div class="category" th:text="${categories[1]}"></div>
 	<div class="category" th:text="${categories[2]}"></div>
 	<div class="category" th:text="${categories[3]}"></div>
-</div>
 
-<div class="grid">
 	<div class="category" th:text="${categories[4]}"></div>
 	<div class="category category-logo" style="width: 410px"><img class="logo" src="/images/logo.png" alt="Logo"></div>
 	<div class="category" th:text="${categories[5]}"></div>
-</div>
 
-<div class="grid">
 	<div class="category" th:text="${categories[6]}"></div>
 	<div class="category" th:text="${categories[7]}"></div>
 	<div class="category" th:text="${categories[8]}"></div>

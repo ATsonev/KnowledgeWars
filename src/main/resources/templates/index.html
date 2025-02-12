@@ -17,14 +17,13 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Styling the button */
         button {
             margin-top: 30px;
             padding: 15px 40px;
             font-size: 20px;
             font-weight: bold;
-            background-color: #76E0D2; /* Purple button */
-            color: #551B96; /* White text for contrast */
+            background-color: #76E0D2;
+            color: #551B96;
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -32,10 +31,9 @@
         }
 
         button:hover {
-            background-color: #BFE3E1; /* Lighter purple on hover */
+            background-color: #BFE3E1;
         }
 
-        /* Move text even higher */
         .arc-container {
             width: 100%;
             height: 120px;
@@ -54,11 +52,9 @@
 </head>
 <body>
 
-<!-- Curved Text using SVG -->
 <div class="arc-container">
 	<svg viewBox="0 0 900 200">
 		<defs>
-			<!-- Move arc higher -->
 			<path id="arcPath" d="M 100,120 A 500,200 0 0,1 800,120" />
 		</defs>
 		<text font-size="80" font-weight="bold" fill="white">
