@@ -10,6 +10,12 @@
             font-family: Arial, sans-serif;
         }
 
+        a {
+            text-decoration: none;
+            color: inherit; /* Keeps the text color of the parent */
+            cursor: default; /* Removes pointer cursor */
+        }
+
         .category-container {
             display: grid;
             grid-template-columns: repeat(4, 200px);
@@ -18,7 +24,7 @@
             gap: 10px;
             grid-row-gap: 5px;
             margin: auto auto 5px;
-            border: 10px solid #F08E1C;
+            border: 10px solid rgba(240, 142, 28, 0.7);
             border-radius: 20px;
             padding: 5px 25px 5px 20px;
             position: relative;
@@ -42,7 +48,7 @@
         }
 
         .category:hover {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: #210E45;
         }
 
         .logo {
@@ -55,25 +61,46 @@
             grid-column: span 2;
             margin-right: 5px;
         }
+
 	</style>
 </head>
 <body>
 <h1>Select a Category</h1>
 
 <div class="category-container">
-	<div class="category" th:text="${categories[0]}"></div>
-	<div class="category" th:text="${categories[1]}"></div>
-	<div class="category" th:text="${categories[2]}"></div>
-	<div class="category" th:text="${categories[3]}"></div>
+	<a th:href="@{/answer-question(category=${categories[0]})}">
+		<div class="category" th:text="${categories[0]}"></div>
+	</a>
+	<a th:href="@{/answer-question(category=${categories[1]})}">
+		<div class="category" th:text="${categories[1]}"></div>
+	</a>
+	<a th:href="@{/answer-question(category=${categories[2]})}">
+		<div class="category" th:text="${categories[2]}"></div>
+	</a>
+	<a th:href="@{/answer-question(category=${categories[3]})}">
+		<div class="category" th:text="${categories[3]}"></div>
+	</a>
 
-	<div class="category" th:text="${categories[4]}"></div>
+	<a th:href="@{/answer-question(category=${categories[4]})}">
+		<div class="category" th:text="${categories[4]}"></div>
+	</a>
 	<div class="category category-logo" style="width: 410px"><img class="logo" src="/images/logo.png" alt="Logo"></div>
-	<div class="category" th:text="${categories[5]}"></div>
+	<a th:href="@{/answer-question(category=${categories[5]})}">
+		<div class="category" th:text="${categories[5]}"></div>
+	</a>
 
-	<div class="category" th:text="${categories[6]}"></div>
-	<div class="category" th:text="${categories[7]}"></div>
-	<div class="category" th:text="${categories[8]}"></div>
-	<div class="category" th:text="${categories[9]}"></div>
+	<a th:href="@{/answer-question(category=${categories[6]})}">
+		<div class="category" th:text="${categories[6]}"></div>
+	</a>
+	<a th:href="@{/answer-question(category=${categories[7]})}">
+		<div class="category" th:text="${categories[7]}"></div>
+	</a>
+	<a th:href="@{/answer-question(category=${categories[8]})}">
+		<div class="category" th:text="${categories[8]}"></div>
+	</a>
+	<a th:href="@{/answer-question(category=${categories[9]})}">
+		<div class="category" th:text="${categories[9]}"></div>
+	</a>
 </div>
 
 </body>
