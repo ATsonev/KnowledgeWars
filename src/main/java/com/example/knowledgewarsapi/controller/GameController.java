@@ -3,12 +3,13 @@ package com.example.knowledgewarsapi.controller;
 import com.example.knowledgewarsapi.model.Question;
 import com.example.knowledgewarsapi.service.QuestionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api")
+@Controller
 public class GameController {
 
     private final QuestionService questionService;
@@ -17,17 +18,14 @@ public class GameController {
         this.questionService = questionService;
     }
 
-/*    @GetMapping("/question")
-    public Question getQuestion(@RequestParam String category) {
-        return questionService.getQuestionByCategory(category);
+    @GetMapping("/categories")
+    public String categories(Model model) {
+        List<String> categories = questionService.getCategories();
+        model.addAttribute("categories", categories);
+        return "categories";
     }
 
-    @PostMapping("/submit")
-    public ResponseEntity<String> submitAnswer(@RequestBody AnswerSubmission submission) {
-        boolean isCorrect = questionService.checkAnswer(submission);
-        return ResponseEntity.ok(isCorrect ? "Correct!" : "Wrong!");
-    }*/
-    @GetMapping("/get-categories")
+    /*@GetMapping("/get-categories")
     public String getCategories(){
         questionService.getCategories();
         return null;
@@ -37,5 +35,5 @@ public class GameController {
     public String getQuestion(@RequestParam String category){
         Question question = questionService.getQuestion(category);
         return null;
-    }
+    }*/
 }

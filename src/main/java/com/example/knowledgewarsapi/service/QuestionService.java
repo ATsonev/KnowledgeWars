@@ -28,7 +28,7 @@ public class QuestionService {
     }
 
     public List<String> getCategories() {
-        String prompt = "Generate 12 trivia categories. Each name must be **ONE SINGLE WORD** only.  " +
+        String prompt = "Generate 10 trivia categories. Each name must be **ONE SINGLE WORD** only.  " +
                 "No explanations, no descriptions. Just return the names in a numbered list";
 
         String requestBody = "{ \"model\": \"mistral\", \"prompt\": \"" + prompt + "\", \"stream\": false }";
@@ -66,7 +66,6 @@ public class QuestionService {
     }
 
     public Question getQuestion(String category) {
-        // Improved prompt with 3 answers, explicit difficulty, and variety
         String prompt = "Generate a **challenging** trivia question for the category '" + category + "'. " +
                 "The question should be **medium to hard difficulty**, requiring actual knowledge instead of being obvious. " +
                 "Ensure the question is unique and not a commonly repeated one. " +
@@ -84,7 +83,6 @@ public class QuestionService {
                 "  \"correct\": \"A\"\n" +
                 "}";
 
-        // Construct JSON request body properly
         JSONObject requestJson = new JSONObject();
         requestJson.put("model", "mistral");
         requestJson.put("prompt", prompt);
@@ -98,9 +96,8 @@ public class QuestionService {
 
         String responseBody = response.getBody();
 
-        // Parse JSON response safely
         JSONObject obj = new JSONObject(responseBody);
-        String jsonResponseStr = obj.getString("response").trim(); // Ensure no leading/trailing issues
+        String jsonResponseStr = obj.getString("response").trim();
         JSONObject jsonResponse = new JSONObject(jsonResponseStr);
 
         String question = jsonResponse.getString("question");

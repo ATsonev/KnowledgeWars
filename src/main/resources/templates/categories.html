@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Categories</title>
+	<style>
+        body {
+            background: linear-gradient(to right, #210E45, #3D1365, #541889, #551B96, #591B96);
+            text-align: center;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            justify-content: center;
+            max-width: 800px;
+            margin: auto;
+        }
+        .category {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+            border: 2px solid #00f7ff;
+        }
+        .category:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+	</style>
+</head>
+<body>
+<h1>Select a Category</h1>
+<div class="grid">
+	<div class="category" th:each="category : ${categories}" th:text="${category}"></div>
+</div>
+</body>
+</html>
