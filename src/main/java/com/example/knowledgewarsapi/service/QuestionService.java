@@ -32,8 +32,8 @@ public class QuestionService {
                 "Make sure the names are **not too long or overly detailed**. " +
                 "The categories should resemble those in classic quiz shows, such as 'World Inventions', 'Famous Musicians', 'News', 'Renaissance'. " +
                 "Avoid single-word categories like 'History' or 'Science', but also do **not** make them unnecessarily long. " +
-                "Ensure the categories cover **a variety of topics**, including history, science, pop culture, geography, literature, and technology. " +
-                "Make sure **each request generates different categories** to keep the game dynamic. " +
+                "Ensure the categories cover **a variety of topics**, including history, science, music, geography, literature" +
+                ",geography, technology and interesting facts. Make sure **each request generates different categories** to keep the game dynamic. " +
                 "Return only the categories as a numbered list, without explanations or extra text.\\n" +
                 "Example format:\\n" +
                 "1. Hidden Wonders\\n" +

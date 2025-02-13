@@ -8,19 +8,67 @@
             text-align: center;
             color: white;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         a {
             text-decoration: none;
-            color: inherit; /* Keeps the text color of the parent */
-            cursor: default; /* Removes pointer cursor */
+            color: inherit;
+            cursor: default;
+        }
+
+        .scoreboard-container {
+            position: fixed;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .player-score {
+            font-size: 80px;
+            font-weight: bold;
+            width: 200px;
+            height: 400px;
+            padding: 15px;
+            border: 3px solid #00f7ff;
+            border-radius: 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .player-score.left {
+            left: 0;
+        }
+
+        .player-score.right {
+            right: 0;
+        }
+
+        .player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px; /* Space between player name and score box */
+        }
+
+        .player-name {
+            font-size: 24px;
+            font-weight: bold;
         }
 
         .category-container {
             display: grid;
-            grid-template-columns: repeat(4, 200px);
+            grid-template-columns: repeat(4, 230px);
             justify-content: center;
-            max-width: 800px;
+            max-width: 920px;
             gap: 10px;
             grid-row-gap: 5px;
             margin: auto auto 5px;
@@ -28,13 +76,13 @@
             border-radius: 20px;
             padding: 5px 25px 5px 20px;
             position: relative;
-            box-shadow: 0 0 30px 15px rgba(240, 142, 28, 0.3), 0 0 80px 40px rgba(255, 255, 0, 0.2); /* Yellow glow effect */
+            box-shadow: 0 0 30px 15px rgba(240, 142, 28, 0.3), 0 0 80px 40px rgba(255, 255, 0, 0.2);
         }
 
         .category {
             background-color: rgba(0, 0, 0, 0.5);
-            width: 200px;
-            height: 200px;
+            width: 230px;
+            height: 230px;
             border-radius: 10px;
             font-size: 25px;
             cursor: pointer;
@@ -45,6 +93,8 @@
             align-items: center;
             justify-content: center;
             color: white;
+            padding: 15px;
+            box-sizing: border-box;
         }
 
         .category:hover {
@@ -52,7 +102,7 @@
         }
 
         .logo {
-            width: 330px;
+            width: 380px;
             height: auto;
             padding-bottom: 5px;
         }
@@ -65,6 +115,19 @@
 	</style>
 </head>
 <body>
+
+<div class="scoreboard-container">
+	<div class="player-container left">
+		<div class="player-name">Player 1</div>
+		<div class="player-score" id="player1-score">0000</div>
+	</div>
+
+	<div class="player-container right">
+		<div class="player-name">Player 2</div>
+		<div class="player-score" id="player2-score">0000</div>
+	</div>
+</div>
+
 <h1>Select a Category</h1>
 
 <div class="category-container">
@@ -84,7 +147,7 @@
 	<a th:href="@{/answer-question(category=${categories[4]})}">
 		<div class="category" th:text="${categories[4]}"></div>
 	</a>
-	<div class="category category-logo" style="width: 410px"><img class="logo" src="/images/logo.png" alt="Logo"></div>
+	<div class="category category-logo" style="width: 470px"><img class="logo" src="/images/logo.png" alt="Logo"></div>
 	<a th:href="@{/answer-question(category=${categories[5]})}">
 		<div class="category" th:text="${categories[5]}"></div>
 	</a>
