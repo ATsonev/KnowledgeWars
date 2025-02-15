@@ -32,13 +32,27 @@
             border: 2px solid #00f7ff;
             border-radius: 10px;
             padding: 10px;
-			color: white;
+            color: white;
             cursor: pointer;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
         }
 
         .answer:hover {
             background-color: #210E45;
+        }
+
+        .correct {
+            background-color: green !important;
+            border-color: green !important;
+        }
+
+        .incorrect {
+            background-color: red !important;
+            border-color: red !important;
         }
 	</style>
 </head>
@@ -46,16 +60,38 @@
 
 <div class="question-container">
 	<h2 th:text="${question.question}"></h2>
+	<input type="hidden" id="correctAnswer" th:value="${question.correctAnswer}">
+
 	<div class="answers">
-		<form th:action="@{/check-answer}" method="post">
-			<input type="hidden" name="correctAnswer" th:value="${question.correctAnswer}">
-			<input type="hidden" name="selectedCategory" th:value="${question.questionCategory}">
-			<button type="submit" class="answer" th:each="option : ${question.options}"
-					th:text="${option}" name="selectedAnswer" th:value="${option}">
-			</button>
-		</form>
+		<button type="button" class="answer"
+				th:each="option, iter : ${question.options}"
+				th:text="${#strings.toUpperCase(#strings.substring('ABCD', iter.index, iter.index+1)) + '. ' + option}"
+				th:value="${#strings.toUpperCase(#strings.substring('ABCD', iter.index, iter.index+1))}"
+				onclick="checkAnswer(this)">
+		</button>
 	</div>
 </div>
+
+<script>
+    function checkAnswer(selectedButton) {
+        let correctAnswer = document.getElementById('correctAnswer').value.trim().toUpperCase();
+        let buttons = document.querySelectorAll('.answer');
+
+        buttons.forEach(btn => btn.disabled = true);
+
+        if (selectedButton.value.trim().toUpperCase() === correctAnswer) {
+            selectedButton.classList.add('correct');
+        } else {
+            selectedButton.classList.add('incorrect');
+
+            buttons.forEach(btn => {
+                if (btn.value.trim().toUpperCase() === correctAnswer) {
+                    btn.classList.add('correct');
+                }
+            });
+        }
+    }
+</script>
 
 </body>
 </html>

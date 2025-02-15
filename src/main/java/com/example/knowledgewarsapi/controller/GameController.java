@@ -2,6 +2,7 @@ package com.example.knowledgewarsapi.controller;
 
 import com.example.knowledgewarsapi.model.Question;
 import com.example.knowledgewarsapi.service.QuestionService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +20,17 @@ public class GameController {
     }
 
     @GetMapping("/categories")
-    public String categories(Model model) {
+    public String categories(Model model, HttpSession session) {
         List<String> categories = questionService.getCategories();
         model.addAttribute("categories", categories);
+
+        Integer currentPlayer = (Integer) session.getAttribute("currentPlayer");
+        if (currentPlayer == null) {
+            currentPlayer = 1;
+            session.setAttribute("currentPlayer", currentPlayer);
+        }
+        model.addAttribute("currentPlayer", currentPlayer);
+
         return "categories";
     }
 
