@@ -7,17 +7,26 @@ public class Question {
     private String question;
     private List<String> options;
     private String correctAnswer;
+    private String questionCategory;
 
-    public Question(String question, List<String> options, String correctAnswer) {
+    public Question(String question, List<String> options, String correctAnswer, String questionCategory) {
         this.question = question;
         this.options = options;
         this.correctAnswer = correctAnswer;
+        this.questionCategory = questionCategory;
+    }
+
+    public String getQuestionCategory() {
+        return questionCategory;
+    }
+
+    public void setQuestionCategory(String questionCategory) {
+        this.questionCategory = questionCategory;
     }
 
     public Question() {
     }
 
-    // Getters and Setters
     public String getQuestion() {
         return question;
     }

@@ -25,15 +25,11 @@ public class GameController {
         return "categories";
     }
 
-    /*@GetMapping("/get-categories")
-    public String getCategories(){
-        questionService.getCategories();
-        return null;
+    @GetMapping("/answer-question")
+    public String getQuestion(@RequestParam String category, Model model) {
+        Question question = questionService.getQuestion(category);
+        model.addAttribute("question", question);
+        return "question";
     }
 
-    @GetMapping("/get-question")
-    public String getQuestion(@RequestParam String category){
-        Question question = questionService.getQuestion(category);
-        return null;
-    }*/
 }

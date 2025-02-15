@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Question</title>
+	<style>
+        body {
+            background: linear-gradient(to right, #210E45, #3D1365, #541889, #551B96, #591B96);
+            text-align: center;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .question-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 3px solid #00f7ff;
+            border-radius: 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .answer {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 2px solid #00f7ff;
+            border-radius: 10px;
+            padding: 10px;
+			color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .answer:hover {
+            background-color: #210E45;
+        }
+	</style>
+</head>
+<body>
+
+<div class="question-container">
+	<h2 th:text="${question.question}"></h2>
+	<div class="answers">
+		<form th:action="@{/check-answer}" method="post">
+			<input type="hidden" name="correctAnswer" th:value="${question.correctAnswer}">
+			<input type="hidden" name="selectedCategory" th:value="${question.questionCategory}">
+			<button type="submit" class="answer" th:each="option : ${question.options}"
+					th:text="${option}" name="selectedAnswer" th:value="${option}">
+			</button>
+		</form>
+	</div>
+</div>
+
+</body>
+</html>
