@@ -44,54 +44,27 @@
         .answer:hover {
             background-color: #210E45;
         }
-
-        .correct {
-            background-color: green !important;
-            border-color: green !important;
-        }
-
-        .incorrect {
-            background-color: red !important;
-            border-color: red !important;
-        }
 	</style>
 </head>
 <body>
 
 <div class="question-container">
 	<h2 th:text="${question.question}"></h2>
-	<input type="hidden" id="correctAnswer" th:value="${question.correctAnswer}">
 
-	<div class="answers">
-		<button type="button" class="answer"
-				th:each="option, iter : ${question.options}"
-				th:text="${#strings.toUpperCase(#strings.substring('ABCD', iter.index, iter.index+1)) + '. ' + option}"
-				th:value="${#strings.toUpperCase(#strings.substring('ABCD', iter.index, iter.index+1))}"
-				onclick="checkAnswer(this)">
-		</button>
-	</div>
+	<form id="answerForm" th:action="@{/submit-answer}" method="post">
+		<input type="hidden" name="category" th:value="${category}">
+		<input type="hidden" name="correctAnswer" th:value="${question.correctAnswer}">
+
+		<div class="answers">
+			<button type="submit" class="answer"
+					th:each="option, iter : ${question.options}"
+					th:text="${#strings.toUpperCase(#strings.substring('ABCD', iter.index, iter.index+1)) + '. ' + option}"
+					th:value="${option}"
+					name="selectedAnswer">
+			</button>
+		</div>
+	</form>
 </div>
-
-<script>
-    function checkAnswer(selectedButton) {
-        let correctAnswer = document.getElementById('correctAnswer').value.trim().toUpperCase();
-        let buttons = document.querySelectorAll('.answer');
-
-        buttons.forEach(btn => btn.disabled = true);
-
-        if (selectedButton.value.trim().toUpperCase() === correctAnswer) {
-            selectedButton.classList.add('correct');
-        } else {
-            selectedButton.classList.add('incorrect');
-
-            buttons.forEach(btn => {
-                if (btn.value.trim().toUpperCase() === correctAnswer) {
-                    btn.classList.add('correct');
-                }
-            });
-        }
-    }
-</script>
 
 </body>
 </html>
