@@ -8,9 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class GameController {
@@ -23,14 +21,31 @@ public class GameController {
 
     @GetMapping("/categories")
     public String categories(Model model, HttpSession session) {
-        List<String> categories = questionService.getCategories();
-        model.addAttribute("categories", categories);
+        if (session.getAttribute("categories") == null) {
+            List<String> categories = questionService.getCategories();
+            session.setAttribute("categories", categories);
+            model.addAttribute("categories", categories);
+        } else {
+            model.addAttribute("categories", session.getAttribute("categories"));
+        }
+
+        if (session.getAttribute("player1Name") == null) {
+            session.setAttribute("player1Name", "Player 1");
+            session.setAttribute("player2Name", "Player 2");
+            session.setAttribute("player1Score", 0);
+            session.setAttribute("player2Score", 0);
+        }
 
         Integer currentPlayer = (Integer) session.getAttribute("currentPlayer");
         if (currentPlayer == null) {
             currentPlayer = 1;
             session.setAttribute("currentPlayer", currentPlayer);
         }
+        model.addAttribute("currentPlayer", currentPlayer);
+        model.addAttribute("player1Name", session.getAttribute("player1Name"));
+        model.addAttribute("player2Name", session.getAttribute("player2Name"));
+        model.addAttribute("player1Score", session.getAttribute("player1Score"));
+        model.addAttribute("player2Score", session.getAttribute("player2Score"));
         model.addAttribute("currentPlayer", currentPlayer);
 
         return "categories";
@@ -40,46 +55,37 @@ public class GameController {
     public String getQuestion(@RequestParam String category, Model model) {
         Question question = questionService.getQuestion(category);
         model.addAttribute("question", question);
+        model.addAttribute("category", category);
         return "question";
     }
 
     @PostMapping("/submit-answer")
     public String submitAnswer(@RequestParam String selectedAnswer,
-                               @RequestParam String correctAnswer,
                                @RequestParam String category,
+                               @RequestParam String correctAnswer,
                                HttpSession session) {
         Integer currentPlayer = (Integer) session.getAttribute("currentPlayer");
-        if (currentPlayer == null) {
-            currentPlayer = 1;
-        }
-
-        Integer player1Score = (Integer) session.getAttribute("player1Score");
-        Integer player2Score = (Integer) session.getAttribute("player2Score");
-
-        if (player1Score == null) player1Score = 0;
-        if (player2Score == null) player2Score = 0;
-
-        if (selectedAnswer.trim().equalsIgnoreCase(correctAnswer.trim())) {
+        if (selectedAnswer.trim().equalsIgnoreCase(correctAnswer)) {
             if (currentPlayer == 1) {
-                player1Score += 300;
+                Integer player1Score = (Integer) session.getAttribute("player1Score");
+                session.setAttribute("player1Score", player1Score + 300);
             } else {
-                player2Score += 300;
+                Integer player2Score = (Integer) session.getAttribute("player2Score");
+                session.setAttribute("player2Score", player2Score + 300);
             }
         }
 
-        currentPlayer = (currentPlayer == 1) ? 2 : 1;
+        List<String> categories = (List<String>) session.getAttribute("categories");
+        categories.remove(category);
+        session.setAttribute("categories", categories);
 
-        session.setAttribute("currentPlayer", currentPlayer);
-        session.setAttribute("player1Score", player1Score);
-        session.setAttribute("player2Score", player2Score);
-
-        Set<String> disabledCategories = (Set<String>) session.getAttribute("disabledCategories");
-        if (disabledCategories == null) {
-            disabledCategories = new HashSet<>();
+        if (currentPlayer == 1) {
+            session.setAttribute("currentPlayer", 2);
+        } else {
+            session.setAttribute("currentPlayer", 1);
         }
-        disabledCategories.add(category);
-        session.setAttribute("disabledCategories", disabledCategories);
 
         return "redirect:/categories";
     }
+
 }
