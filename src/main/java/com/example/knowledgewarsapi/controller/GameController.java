@@ -3,12 +3,14 @@ package com.example.knowledgewarsapi.controller;
 import com.example.knowledgewarsapi.model.Question;
 import com.example.knowledgewarsapi.service.QuestionService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class GameController {
@@ -19,17 +21,24 @@ public class GameController {
         this.questionService = questionService;
     }
 
+    @GetMapping("")
+    public String index(HttpSession session){
+        session.invalidate();
+        return "index";
+    }
+
     @GetMapping("/categories")
     public String categories(Model model, HttpSession session) {
         if (session.getAttribute("categories") == null) {
             List<String> categories = questionService.getCategories();
             session.setAttribute("categories", categories);
+            session.setAttribute("disabledCategories", new HashSet<String>());
             model.addAttribute("categories", categories);
         } else {
             model.addAttribute("categories", session.getAttribute("categories"));
         }
 
-        if (session.getAttribute("player1Name") == null) {
+        if (session.getAttribute("player1Name") == null || session.getAttribute("player2Name") == null) {
             session.setAttribute("player1Name", "Player 1");
             session.setAttribute("player2Name", "Player 2");
             session.setAttribute("player1Score", 0);
@@ -47,6 +56,7 @@ public class GameController {
         model.addAttribute("player1Score", session.getAttribute("player1Score"));
         model.addAttribute("player2Score", session.getAttribute("player2Score"));
         model.addAttribute("currentPlayer", currentPlayer);
+        model.addAttribute("disabledCategories", session.getAttribute("disabledCategories"));
 
         return "categories";
     }
@@ -75,9 +85,9 @@ public class GameController {
             }
         }
 
-        List<String> categories = (List<String>) session.getAttribute("categories");
-        categories.remove(category);
-        session.setAttribute("categories", categories);
+        Set<String> disabledCategories = (Set<String>) session.getAttribute("disabledCategories");
+        disabledCategories.add(category);
+        session.setAttribute("disabledCategories", disabledCategories);
 
         if (currentPlayer == 1) {
             session.setAttribute("currentPlayer", 2);

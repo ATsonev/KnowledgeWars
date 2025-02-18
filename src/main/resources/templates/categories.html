@@ -102,6 +102,7 @@
         }
 
         .logo {
+            grid-column: span 2;
             width: 380px;
             height: auto;
             padding-bottom: 5px;
@@ -115,6 +116,12 @@
         .active-player {
             color: yellow;
             text-shadow: 0 0 10px yellow;
+        }
+
+        .disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: not-allowed;
         }
 
 	</style>
@@ -136,39 +143,23 @@
 <h1>Select a Category</h1>
 
 <div class="category-container">
-	<a th:href="@{/answer-question(category=${categories[0]})}">
-		<div class="category" th:text="${categories[0]}"></div>
-	</a>
-	<a th:href="@{/answer-question(category=${categories[1]})}">
-		<div class="category" th:text="${categories[1]}"></div>
-	</a>
-	<a th:href="@{/answer-question(category=${categories[2]})}">
-		<div class="category" th:text="${categories[2]}"></div>
-	</a>
-	<a th:href="@{/answer-question(category=${categories[3]})}">
-		<div class="category" th:text="${categories[3]}"></div>
-	</a>
+	<div th:each="category, iterStat : ${categories}" th:if="${iterStat.index < 5}">
+		<a th:href="@{/answer-question(category=${category})}" th:classappend="${disabledCategories.contains(category)} ? 'disabled' : ''">
+			<div class="category" th:text="${category}"
+				 th:attr="style=${disabledCategories.contains(category)} ? 'cursor: not-allowed; pointer-events: none;' : 'cursor: pointer;'">
+			</div>
+		</a>
+	</div>
 
-	<a th:href="@{/answer-question(category=${categories[4]})}">
-		<div class="category" th:text="${categories[4]}"></div>
-	</a>
 	<div class="category category-logo" style="width: 470px"><img class="logo" src="/images/logo.png" alt="Logo"></div>
-	<a th:href="@{/answer-question(category=${categories[5]})}">
-		<div class="category" th:text="${categories[5]}"></div>
-	</a>
 
-	<a th:href="@{/answer-question(category=${categories[6]})}">
-		<div class="category" th:text="${categories[6]}"></div>
-	</a>
-	<a th:href="@{/answer-question(category=${categories[7]})}">
-		<div class="category" th:text="${categories[7]}"></div>
-	</a>
-	<a th:href="@{/answer-question(category=${categories[8]})}">
-		<div class="category" th:text="${categories[8]}"></div>
-	</a>
-	<a th:href="@{/answer-question(category=${categories[9]})}">
-		<div class="category" th:text="${categories[9]}"></div>
-	</a>
+	<div th:each="category, iterStat : ${categories}" th:if="${iterStat.index >= 5} and ${iterStat.index < 11}">
+		<a th:href="@{/answer-question(category=${category})}" th:classappend="${disabledCategories.contains(category)} ? 'disabled' : ''">
+			<div class="category" th:text="${category}"
+				 th:attr="style=${disabledCategories.contains(category)} ? 'cursor: not-allowed; pointer-events: none;' : 'cursor: pointer;'">
+			</div>
+		</a>
+	</div>
 </div>
 
 </body>
