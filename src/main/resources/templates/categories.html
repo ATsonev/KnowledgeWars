@@ -153,7 +153,7 @@
 
 	<div class="category category-logo" style="width: 470px"><img class="logo" src="/images/logo.png" alt="Logo"></div>
 
-	<div th:each="category, iterStat : ${categories}" th:if="${iterStat.index >= 5} and ${iterStat.index < 11}">
+	<div th:each="category, iterStat : ${categories}" th:if="${iterStat.index >= 5} and ${iterStat.index < 10}">
 		<a th:href="@{/answer-question(category=${category})}" th:classappend="${disabledCategories.contains(category)} ? 'disabled' : ''">
 			<div class="category" th:text="${category}"
 				 th:attr="style=${disabledCategories.contains(category)} ? 'cursor: not-allowed; pointer-events: none;' : 'cursor: pointer;'">

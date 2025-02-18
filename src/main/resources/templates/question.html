@@ -67,7 +67,8 @@
 			<button type="submit" class="answer" th:each="option, iter : ${question.options}"
 					th:name="selectedAnswer"
 					th:value="${#strings.toUpperCase(#strings.substring('ABCD', iter.index, iter.index+1))}"
-					th:text="${#strings.toUpperCase(#strings.substring('ABCD', iter.index, iter.index+1)) + '. ' + option}">
+					th:text="${#strings.toUpperCase(#strings.substring('ABCD', iter.index, iter.index+1)) + '. ' + option}"
+					onclick="checkAnswer(this)">
 			</button>
 		</div>
 	</form>
@@ -75,8 +76,11 @@
 
 <script>
     function checkAnswer(selectedButton) {
+        event.preventDefault();
+
         let correctAnswer = document.getElementById('correctAnswer').value.trim().toUpperCase();
         let buttons = document.querySelectorAll('.answer');
+        let form = selectedButton.closest("form");
 
         buttons.forEach(btn => btn.disabled = true);
 
@@ -84,15 +88,25 @@
             selectedButton.classList.add('correct');
         } else {
             selectedButton.classList.add('incorrect');
-
             buttons.forEach(btn => {
                 if (btn.value.trim().toUpperCase() === correctAnswer) {
                     btn.classList.add('correct');
                 }
             });
         }
+
+        let selectedInput = document.createElement("input");
+        selectedInput.type = "hidden";
+        selectedInput.name = "selectedAnswer";
+        selectedInput.value = selectedButton.value;
+        form.appendChild(selectedInput);
+
+        setTimeout(() => {
+            form.submit();
+        }, 1500);
     }
 </script>
+
 
 </body>
 </html>
